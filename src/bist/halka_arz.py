@@ -9,6 +9,9 @@ import pytz
 import yfinance as yf
 from src.email_utils import send_email
 from src.lib.utils import get_turkish_month
+import logging
+
+logger = logging.getLogger(__name__)
 
 def format_day(day):
     """Remove leading zero from day if present."""
@@ -18,14 +21,26 @@ def format_day(day):
 def get_stock_data(stock_code):
     """Retrieve stock data for a given stock code."""
     hisse = yf.Ticker(stock_code + ".IS")
-    hisse_data = hisse.history(period="max")
-    hisse_close_list = hisse_data["Close"][-3:].tolist()
-    return hisse_close_list
+    logger.info(f"Fetching stock data for {stock_code}.")
+    try:
+        hisse_data = hisse.history(period="max")
+        hisse_close_list = hisse_data["Close"][-3:].tolist()
+        logger.info(f"Successfully fetched stock data for {stock_code}: {hisse_close_list}")
+        return hisse_close_list
+    except Exception as e:
+        logger.error(f"Error fetching data for {stock_code}: {e}")
+        return []
 
 
 def calculate_change(current, previous):
     """Calculate percentage change between two values."""
-    return round(((current - previous) / previous) * 100, 2)
+    try:
+        change = round(((current - previous) / previous) * 100, 2)
+        logger.info(f"Calculated change: {change}% between {previous} and {current}")
+        return change
+    except ZeroDivisionError as e:
+        logger.error(f"Error calculating change: {e}")
+        return 0
 
 
 def halka_arz():
@@ -35,6 +50,7 @@ def halka_arz():
     This function retrieves stock data for specified Turkish companies,
     calculates their daily performance, and sends an email summary.
     """
+    logger.start("Running halka_arz")
     timezone = pytz.timezone("Europe/Istanbul")
     today_date = datetime.now(timezone)
     day = format_day(today_date.strftime("%d"))
@@ -46,6 +62,11 @@ def halka_arz():
 
     for stock in reversed(stocks):
         hisse_close_list = get_stock_data(stock)
+        if len(hisse_close_list) < 3:
+            logger.warning(f"Insufficient data for {stock}. Skipping...")
+            body += f"⚠️ #{stock} Yeterli veri yok\n"
+            continue
+
         hisse_current, hisse_prev = hisse_close_list[2], hisse_close_list[1]
         change_rate = calculate_change(hisse_current, hisse_prev)
 
@@ -55,8 +76,14 @@ def halka_arz():
 
         message = f"{emoji} #{stock} bugün %{change_rate} {text}{tavan_check}\n"
         body += message
+        logger.info(f"Appended performance data for {stock}: {message.strip()}")
 
-    send_email(subject, body)
+    try:
+        # send_email(subject, body)
+        print(body)
+        logger.ok("halka_arz worked successfully")
+    except Exception as e:
+        logger.error(f"Failed to send email: {e}")
 
 
 if __name__ == "__main__":

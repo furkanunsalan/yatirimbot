@@ -2,6 +2,7 @@
   "packages": ["python@3.12", "poetry@latest"],
   "shell": {
     "init_hook": [
+      "zsh",
       "echo 'Welcome to devbox!' > /dev/null",
       "source $VENV_DIR/bin/activate",
       "poetry install",

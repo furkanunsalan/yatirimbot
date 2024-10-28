@@ -10,6 +10,8 @@ from app import keep_alive
 from src.bist.bist_30_change import bist30_change
 from src.bist.bist_comp import bist_comp
 from src.bist.bist_open_close import send_bist_open, send_bist_close
+from src.bist.bist_sector_info import bist_sector_info
+from src.bist.bist_sector_stock_info import bist_sector_stock_info
 from src.bist.bist_stock_by_time import bist_stock_by_time
 from src.bist.halka_arz import halka_arz
 from src.commodity.commodity_price import commodity_price
@@ -86,8 +88,7 @@ def main():
     # while True:
     #     schedule.run_pending()
     #     time.sleep(1)
-    send_bist_open()
-    send_bist_close()
+    bist_stock_by_time()
 
 if __name__ == "__main__":
     main()
