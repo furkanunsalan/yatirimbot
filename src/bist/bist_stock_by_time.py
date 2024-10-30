@@ -7,6 +7,7 @@ are then formatted into a message that can be sent via email.
 """
 
 import random
+import logging
 from io import BytesIO
 import matplotlib.pyplot as plt
 import yfinance as yf
@@ -15,6 +16,8 @@ from src.lib.constants import bist_all
 from src.lib.utils import get_stock_emoji_and_text
 from src.lib.utils import get_turkish_month
 
+# Configure logger
+logger = logging.getLogger(__name__)
 
 def initialize_stock_data():
     """
@@ -23,14 +26,22 @@ def initialize_stock_data():
     Returns:
         tuple: Contains the chosen stock, stock code, historical data, and the stock information.
     """
-    chosen_stock = random.choice(bist_all)
-    stock_code = chosen_stock + ".IS"
-    chosen_stock_info = yf.Ticker(stock_code)
+    try:
+        chosen_stock = random.choice(bist_all)
+        stock_code = chosen_stock + ".IS"
+        chosen_stock_info = yf.Ticker(stock_code)
 
-    # Retrieve historical data for the chosen stock
-    hist_data = chosen_stock_info.history(period="1y")
+        logger.info(f"Chosen stock: {chosen_stock} with code: {stock_code}")
 
-    return chosen_stock, hist_data, chosen_stock_info
+        # Retrieve historical data for the chosen stock
+        hist_data = chosen_stock_info.history(period="1y")
+        logger.info("Historical data retrieved successfully.")
+
+        return chosen_stock, hist_data, chosen_stock_info
+
+    except Exception as e:
+        logger.error(f"Error initializing stock data: {e}")
+        raise  # Re-raise the exception to halt execution
 
 
 def generate_stock_graph(stock, hist_data):
@@ -44,65 +55,103 @@ def generate_stock_graph(stock, hist_data):
     Returns:
         BytesIO: A BytesIO object containing the PNG image of the graph.
     """
-    # Plot historical prices
-    plt.figure(figsize=(12, 6))
-    plt.plot(hist_data["Close"], label="Son Fiyat")
-    plt.title(f"{stock} Hisse Senedi Grafiği")
-    plt.xlabel("")
-    plt.ylabel("Fiyat")
-    plt.grid(True)
-    plt.legend()
-    plt.xticks(rotation=45)
-    plt.tight_layout()
+    try:
+        # Plot historical prices
+        plt.figure(figsize=(12, 6))
+        plt.plot(hist_data["Close"], label="Son Fiyat")
+        plt.title(f"{stock} Hisse Senedi Grafiği")
+        plt.xlabel("")
+        plt.ylabel("Fiyat")
+        plt.grid(True)
+        plt.legend()
+        plt.xticks(rotation=45)
+        plt.tight_layout()
 
-    # Save the plot as a BytesIO object
-    image = BytesIO()
-    plt.savefig(image, format="png")  # Save the plot as PNG image to the BytesIO object
-    plt.show()
-    return image
+        # Save the plot as a BytesIO object
+        image = BytesIO()
+        plt.savefig(image, format="png")  # Save the plot as PNG image to the BytesIO object
+        plt.close()  # Close the plot to free memory
+        logger.info("Stock graph generated successfully.")
+        return image
+
+    except Exception as e:
+        logger.error(f"Error generating stock graph: {e}")
+        raise  # Re-raise the exception to halt execution
 
 
 def bist_stock_by_time():
     """
-    Generate a performance report for the chosen stock, including percentage changes over different time periods, and print the report. This function also generates agraph of the stock's historical prices.
+    Generate a performance report for the chosen stock, including percentage changes over different time periods, and print the report. This function also generates a graph of the stock's historical prices.
 
     Returns:
         None
     """
+    logger.start("Running bist_stock_by_time")
+    
     # Initialize stock data
-    chosen_stock, hist_data, chosen_stock_info = initialize_stock_data()
+    try:
+        chosen_stock, hist_data, chosen_stock_info = initialize_stock_data()
+    except Exception as e:
+        logger.error(f"Failed to initialize stock data: {e}")
+        return  # Exit the function if initialization fails
 
     # Get the latest price
-    today = chosen_stock_info.info.get("currentPrice", "0")
+    try:
+        today = chosen_stock_info.info.get("currentPrice", "0")
+        logger.info(f"Current price retrieved: {today}")
+    except Exception as e:
+        logger.error(f"Failed to retrieve current price: {e}")
+        return  # Exit if the price retrieval fails
 
     # Values for 5-day change
-    day_5_close = hist_data["Close"].iloc[-6]
-    day_5_change_percent = (((today - day_5_close) / day_5_close) * 100).round(1)
-    day_5_day = hist_data.index[-6].strftime("%d")
-    day_5_month = hist_data.index[-6].strftime("%B")
-    day_5_year = hist_data.index[-6].strftime("%Y")
-    turkish_day_5 = get_turkish_month(day_5_month)
+    try:
+        day_5_close = hist_data["Close"].iloc[-6]
+        day_5_change_percent = (((today - day_5_close) / day_5_close) * 100).round(1)
+        day_5_day = hist_data.index[-6].strftime("%d")
+        day_5_month = hist_data.index[-6].strftime("%B")
+        day_5_year = hist_data.index[-6].strftime("%Y")
+        turkish_day_5 = get_turkish_month(day_5_month)
+        logger.info(f"5-day change calculated: {day_5_change_percent}% on {day_5_day} {turkish_day_5} {day_5_year}")
+    except Exception as e:
+        logger.error(f"Error calculating 5-day change: {e}")
+        return  # Exit if the calculation fails
 
     # Values for 1-month change
-    month_1_close = hist_data["Close"].iloc[-31]
-    month_1_change_percent = (((today - month_1_close) / month_1_close) * 100).round(1)
-    month_1_day = hist_data.index[-31].strftime("%d")
-    month_1_month = hist_data.index[-31].strftime("%B")
-    month_1_year = hist_data.index[-31].strftime("%Y")
-    turkish_month_1 = get_turkish_month(month_1_month)
+    try:
+        month_1_close = hist_data["Close"].iloc[-31]
+        month_1_change_percent = (((today - month_1_close) / month_1_close) * 100).round(1)
+        month_1_day = hist_data.index[-31].strftime("%d")
+        month_1_month = hist_data.index[-31].strftime("%B")
+        month_1_year = hist_data.index[-31].strftime("%Y")
+        turkish_month_1 = get_turkish_month(month_1_month)
+        logger.info(f"1-month change calculated: {month_1_change_percent}% on {month_1_day} {turkish_month_1} {month_1_year}")
+    except Exception as e:
+        logger.error(f"Error calculating 1-month change: {e}")
+        return  # Exit if the calculation fails
 
     # Values for 6-month change
-    month_6_close = hist_data["Close"].iloc[-181]
-    month_6_change_percent = (((today - month_6_close) / month_6_close) * 100).round(1)
-    month_6_day = hist_data.index[-181].strftime("%d")
-    month_6_month = hist_data.index[-181].strftime("%B")
-    month_6_year = hist_data.index[-181].strftime("%Y")
-    turkish_month_6 = get_turkish_month(month_6_month)
+    try:
+        month_6_close = hist_data["Close"].iloc[-181]
+        month_6_change_percent = (((today - month_6_close) / month_6_close) * 100).round(1)
+        month_6_day = hist_data.index[-181].strftime("%d")
+        month_6_month = hist_data.index[-181].strftime("%B")
+        month_6_year = hist_data.index[-181].strftime("%Y")
+        turkish_month_6 = get_turkish_month(month_6_month)
+        logger.info(f"6-month change calculated: {month_6_change_percent}% on {month_6_day} {turkish_month_6} {month_6_year}")
+    except Exception as e:
+        logger.error(f"Error calculating 6-month change: {e}")
+        return  # Exit if the calculation fails
 
-    image = generate_stock_graph(chosen_stock, hist_data)
+    # Generate the stock graph
+    try:
+        image = generate_stock_graph(chosen_stock, hist_data)
+    except Exception as e:
+        logger.error(f"Failed to generate stock graph: {e}")
+        return  # Exit if the graph generation fails
 
     # Construct the message
-    body = f"""🔴 #{chosen_stock} Hissesinin Zamana Bağlı Performansı 👇
+    try:
+        body = f"""🔴 #{chosen_stock} Hissesinin Zamana Bağlı Performansı 👇
 
 💸 Güncel Fiyat: {today}
 
@@ -112,11 +161,15 @@ def bist_stock_by_time():
 
 #yatırım #borsa #hisse #ekonomi #bist #bist100 #türkiye #faiz #enflasyon #endeks #finans #para #şirket
           """
-    subject = "bist_by_time #bist_stock_by_time"
+        subject = "bist_by_time #bist_stock_by_time"
 
-    # print(body)
-    send_email(subject, body, image)
+        # Send the email
+        # send_email(subject, body, image)
+        print(body)
+        logger.ok("bist_stock_by_time worked successfully")
 
+    except Exception as e:
+        logger.error(f"Error sending email: {e}")
 
 if __name__ == "__main__":
     bist_stock_by_time()
