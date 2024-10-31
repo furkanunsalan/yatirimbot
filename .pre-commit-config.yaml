@@ -15,11 +15,3 @@ repos:
     rev: v1.12.1  # Latest version of Prospector
     hooks:
       - id: prospector
-
-  - repo: local
-    hooks:
-      - id: custom-hook
-        name: Custom Pre-commit Hook
-        entry: .git/hooks/pre-commit-custom.sh
-        language: script
-        types: [python]  # Specify the types of files this hook should run on
