@@ -19,6 +19,7 @@ python-dotenv = "^1.0.1"
 schedule = "^1.2.2"
 logging = "^0.4.9.6"
 mylib = "^0.0.1"
+pre-commit = "^4.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
