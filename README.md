@@ -55,6 +55,10 @@ Open up a terminal and run the following command
 python3 main.py
 ```
 
+## Repo Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/da97e089788d838318a0730bca98b374442292eb.svg "Repobeats analytics image")
+
 ## Çalışma Zamanları ve İşlevler
 
 ### Hafta İçi (Pazartesi - Cuma)
