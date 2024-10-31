@@ -13,6 +13,7 @@ import logging
 
 # Configure logging for this module
 logger = logging.getLogger(__name__)
+#test?
 
 def get_stock_change(stock):
     """
