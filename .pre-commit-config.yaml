@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 24.10.0  # Latest version of Black
+    hooks:
+      - id: black
+        args: [--line-length=88, src/, main.py]  # Adjust paths as needed
+
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: v2.13  # Latest version of Vulture
+    hooks:
+      - id: vulture
+        args: [src, --exclude, ".venv/,**/site-packages/"]
+
+  - repo: https://github.com/PyCQA/prospector
+    rev: v1.12.1  # Latest version of Prospector
+    hooks:
+      - id: prospector
+        language: system 
