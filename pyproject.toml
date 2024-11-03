@@ -1,36 +1,18 @@
-[tool.poetry]
+[project]
 name = "yatirimbot"
 version = "0.1.0"
-description = ""
-authors = ["Ömer Duran <me@omerduran.dev>"]
-license = "MIT"
+description = "Add your description here"
 readme = "README.md"
-package-mode = false
-
-[tool.poetry.dependencies]
-python = "^3.12"
-yfinance = "^0.2.43"
-matplotlib = "^3.9.1"
-pytz = "^2024.1"
-beautifulsoup4 = "^4.12.3"
-requests = "^2.32.3"
-flask = "^3.0.3"
-python-dotenv = "^1.0.1"
-schedule = "^1.2.2"
-logging = "^0.4.9.6"
-mylib = "^0.0.1"
-pre-commit = "^4.0.1"
-prospector = {version = "^1.12.1", extras = ["with_pyroma"]}
-
-[tool.poetry.group.dev.dependencies]
-black = "^24.4.2"
-pytest = "^7.4.3"
-vulture = "^2.11"
-prospector = "*"
-bandit = "^1.7.10"
-mypy = "^1.11.2"
-pyroma = "^4.2"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "datetime>=5.5",
+    "flask>=3.0.3",
+    "http-client>=0.1.22",
+    "matplotlib>=3.9.2",
+    "python-dotenv>=1.0.1",
+    "pytz>=2024.2",
+    "requests>=2.32.3",
+    "schedule>=1.2.2",
+    "yfinance>=0.2.48",
+]
