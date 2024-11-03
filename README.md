@@ -2,94 +2,73 @@
 
 Yatırım Bot is a Python-based project designed to automate the sharing of financial updates and trading signals on Twitter. It provides timely information about market activities, including stock prices, commodities, and cryptocurrency updates, ensuring that users stay informed about critical financial events throughout the week.
 
-## Table of Contents
+## Installation
 
-- [Start Development Using Devbox](#start-development-using-devbox)
-  - [Configure Environment Variables](#configure-environment-variables)
-  - [Running the script](#running-the-script)
-- [Start Development Without Devbox](#start-development-without-devbox)
-  - [Install Packages](#install-packages)
-  - [Configure Environment Variables](#configure-environment-variables-1)
-  - [Run the main script](#run-the-main-script)
-- [Çalışma Zamanları ve İşlevler](#çalışma-zamanları-ve-i̇şlevler)
-  - [Hafta İçi (Pazartesi - Cuma)](#hafta-içi-pazartesi---cuma)
-  - [Hafta Sonu Dahil Her Gün](#hafta-sonu-dahil-her-gün)
+### Install UV
 
-## Start Development Using Devbox
-
-### Configure Environment Variables
-
-`EMAIL`: Email of the sender
-
-`PASSWORD`: Password for the sender SMTP
-
-`RECEIVER`: Email for the receiver of test functions etc.
-
-### Running the script
-Install [Devbox](https://www.jetify.com/devbox/docs/installing_devbox/) if it's not already installed
-
-Open a terminal and run the following
-
+1. On macOS and Linux:
 ```bash
-devbox shell
-python3 main.py
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-## Start Development Without Devbox
-
-### Install Packages
-Run `pip install -r requirements.txt` to install required packages.
-
-### Configure Environment Variables
-
-`EMAIL`: Email of the sender
-
-`PASSWORD`: Password for the sender SMTP
-
-`RECEIVER`: Email for the receiver of test functions etc.
-
-### Run the main script
-Open up a terminal and run the following command
-
-```bash
-python3 main.py
+2. On Windows:
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
+
+3. Using pip:
+```bash
+pip install uv
+```
+
+## Getting Started
+
+1. Install required packages:
+```bash
+uv pip install -r requirements.txt
+```
+
+2. Configure Environment Variables:
+- `EMAIL`: Email of the sender
+- `PASSWORD`: Password for the sender SMTP
+- `RECEIVER`: Email for the receiver of test functions
+
+3. Run the project:
+```bash
+uv run main.py
+```
+
+## Operating Schedule
+
+### Weekdays (Monday - Friday)
+- 10:17 - BIST market opening signal
+- 10:20 - IPO operations
+- 10:30 - Gold price update
+- 11:30 - Silver price update
+- 12:30 - Exchange rate update
+- 13:30 - Natural Gas price update
+- 16:00 & 16:46 - BIST 30 and US market opening
+- 16:30 - Gold price update
+- 18:17 - BIST market closing signal
+- 19:30 - BIST 30 changes
+- 20:00 & 20:30 - Crude Oil and BIST 30 changes
+- 23:16 & 23:30 - US market closing and Heating Oil price update
+
+### Daily (Including Weekends)
+- 06:30 & 18:00 - Cryptocurrency updates
+- 11:00, 15:00 & 19:00 - BIST stock operations based on timing
+- 17:30 & 23:49 - Long-term stock updates
+
+## Requirements
+- Stable internet connection
+- Accurate system time settings
+- Python 3.x
 
 ## Repo Activity
-
 ![Alt](https://repobeats.axiom.co/api/embed/da97e089788d838318a0730bca98b374442292eb.svg "Repobeats analytics image")
 
-## Çalışma Zamanları ve İşlevler
+## Contributing
+Contributions, issues, and feature requests are welcome. Feel free to check issues page if you want to contribute.
 
-### Hafta İçi (Pazartesi - Cuma)
-
-10:17 - BIST açılış sinyali gönderilir.
-
-10:20 - Halka arz işlemi gerçekleştirilir.
-
-10:30 - Altın fiyatı güncellenir.
-11:30 - Gümüş fiyatı güncellenir.
-
-12:30 - Döviz kuru güncellenir.
-
-13:30 - Doğal Gaz fiyatı güncellenir.
-
-16:00 ve 16:46 - BIST 30 ve ABD piyasası açılışı gerçekleştirilir.
-
-16:30 - Altın fiyatı güncellenir.
-
-18:17 - BIST kapanış sinyali gönderilir.
-
-19:30 - BIST 30 değişiklikleri gerçekleştirilir.
-
-20:00 ve 20:30 - Ham Petrol ve BIST 30 değişiklikleri gerçekleştirilir.
-
-23:16 ve 23:30 - ABD piyasası kapanışı ve Kalorifer Yakıtı fiyatı güncellenir.
-
-### Hafta Sonu Dahil Her Gün
-
-06:30 ve 18:00 - Kripto para birimi güncellemeleri gönderilir.
-
-11:00, 15:00 ve 19:00 - BIST hisse senedi zamanına göre işlemler yapılır.
-
-17:30 ve 23:49 - Uzun vadeli hisse senetleri güncellenir.
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
