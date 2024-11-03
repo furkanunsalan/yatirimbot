@@ -28,7 +28,7 @@ def home():
 
 def run():
     """Run the Flask application."""
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8576)
 
 def keep_alive():
     """Start the Flask application in a separate thread."""
