@@ -23,17 +23,12 @@ pip install uv
 
 ## Getting Started
 
-1. Install required packages:
-```bash
-uv pip install -r requirements.txt
-```
-
-2. Configure Environment Variables:
+1. Configure Environment Variables:
 - `EMAIL`: Email of the sender
 - `PASSWORD`: Password for the sender SMTP
 - `RECEIVER`: Email for the receiver of test functions
 
-3. Run the project:
+2. Run the project:
 ```bash
 uv run main.py
 ```
