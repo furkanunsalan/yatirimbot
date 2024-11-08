@@ -68,5 +68,6 @@ uv run main.py
 ## Contributing
 Contributions, issues, and feature requests are welcome. Feel free to check issues page if you want to contribute.
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+[![awesome contributors](https://contrib.rocks/image?repo=Descite-Co/yatirimbot)](https://github.com/Descite-Co/yatirimbot)
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Descite-Co/yatirimbot&type=Timeline)](https://star-history.com/#Descite-Co/yatirimbot)
