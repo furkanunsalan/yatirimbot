@@ -1,4 +1,7 @@
 # Yatırım Bot | @yatirimhaberi | 2024
+[![Made With Love](https://img.shields.io/badge/Made%20With-Love-orange.svg)](https://github.com/chetanraj/awesome-github-badges) [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](https://opensource.org/licenses/MIT) [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Descite-Co/yatirimbot.svg)](https://GitHub.com/Descite-Co/yatirimbot/pulls/) [![GitHub pull-requests](https://img.shields.io/github/issues/Descite-Co/yatirimbot.svg)](https://GitHub.com/Descite-Co/yatirimbot/pulls/)
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/yatirimhaberi?style=social)](https://x.com/yatirimhaberi)
 
 Yatırım Bot is a Python-based project designed to automate the sharing of financial updates and trading signals on Twitter. It provides timely information about market activities, including stock prices, commodities, and cryptocurrency updates, ensuring that users stay informed about critical financial events throughout the week.
 
