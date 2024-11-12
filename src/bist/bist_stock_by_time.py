@@ -164,8 +164,8 @@ def bist_stock_by_time():
         subject = "bist_by_time #bist_stock_by_time"
 
         # Send the email
-        # send_email(subject, body, image)
-        print(body)
+        send_email(subject, body, image)
+        # print(body)
         logger.ok("bist_stock_by_time worked successfully")
 
     except Exception as e:
