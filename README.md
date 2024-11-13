@@ -1,3 +1,5 @@
+![screenshot](opengraph-image.png)
+
 # Yatırım Bot | @yatirimhaberi | 2024
 [![Made With Love](https://img.shields.io/badge/Made%20With-Love-orange.svg)](https://github.com/chetanraj/awesome-github-badges) [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](https://opensource.org/licenses/MIT) [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Descite-Co/yatirimbot.svg)](https://GitHub.com/Descite-Co/yatirimbot/pulls/) [![GitHub pull-requests](https://img.shields.io/github/issues/Descite-Co/yatirimbot.svg)](https://GitHub.com/Descite-Co/yatirimbot/pulls/)
 
@@ -24,9 +26,15 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 pip install uv
 ```
 
+## Requirements
+
+- Stable internet connection
+- Accurate system time settings
+- Python 3.x
+
 ## Getting Started
 
-1. Configure Environment Variables:
+1. Configure Environment Variables like in [example .env](env.example):
 - `EMAIL`: Email of the sender
 - `PASSWORD`: Password for the sender SMTP
 - `RECEIVER`: Email for the receiver of test functions
@@ -38,29 +46,30 @@ uv run main.py
 
 ## Operating Schedule
 
-### Weekdays (Monday - Friday)
-- 10:17 - BIST market opening signal
-- 10:20 - IPO operations
-- 10:30 - Gold price update
-- 11:30 - Silver price update
-- 12:30 - Exchange rate update
-- 13:30 - Natural Gas price update
-- 16:00 & 16:46 - BIST 30 and US market opening
-- 16:30 - Gold price update
-- 18:17 - BIST market closing signal
-- 19:30 - BIST 30 changes
-- 20:00 & 20:30 - Crude Oil and BIST 30 changes
-- 23:16 & 23:30 - US market closing and Heating Oil price update
-
-### Daily (Including Weekends)
-- 06:30 & 18:00 - Cryptocurrency updates
-- 11:00, 15:00 & 19:00 - BIST stock operations based on timing
-- 17:30 & 23:49 - Long-term stock updates
-
-## Requirements
-- Stable internet connection
-- Accurate system time settings
-- Python 3.x
+| Time          | Activity                                      | Frequency                |
+|---------------|-----------------------------------------------|--------------------------|
+| 10:17         | BIST market opening signal                    | Weekdays                 |
+| 10:20         | IPO operations                                | Weekdays                 |
+| 10:30         | Gold price update                             | Weekdays                 |
+| 11:30         | Silver price update                           | Weekdays                 |
+| 12:30         | Exchange rate update                          | Weekdays                 |
+| 13:30         | Natural Gas price update                      | Weekdays                 |
+| 16:00         | BIST 30 and US market opening                | Weekdays                 |
+| 16:46         | BIST 30 and US market opening                | Weekdays                 |
+| 16:30         | Gold price update                             | Weekdays                 |
+| 18:17         | BIST market closing signal                    | Weekdays                 |
+| 19:30         | BIST 30 changes                               | Weekdays                 |
+| 20:00         | Crude Oil changes                             | Weekdays                 |
+| 20:30         | BIST 30 changes                               | Weekdays                 |
+| 23:16         | US market closing                             | Weekdays                 |
+| 23:30         | Heating Oil price update                      | Weekdays                 |
+| 06:30         | Cryptocurrency updates                        | Daily                    |
+| 18:00         | Cryptocurrency updates                        | Daily                    |
+| 11:00         | BIST stock operations based on timing        | Daily                    |
+| 15:00         | BIST stock operations based on timing        | Daily                    |
+| 19:00         | BIST stock operations based on timing        | Daily                    |
+| 17:30         | Long-term stock updates                       | Daily                    |
+| 23:49         | Long-term stock updates                       | Daily                    |
 
 ## Repo Activity
 ![Alt](https://repobeats.axiom.co/api/embed/da97e089788d838318a0730bca98b374442292eb.svg "Repobeats analytics image")
